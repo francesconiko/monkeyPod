@@ -33,7 +33,7 @@ class CaosMonkeyPodApplicationTest {
         MockitoAnnotations.openMocks(this).close();
     }
     @Test
-    public void deleteRandomPod_deletesPod() throws IOException, ApiException {
+    public void deleteTwoRandomPods() throws IOException, ApiException {
         ApiClient client = Config.defaultClient();
         Configuration.setDefaultApiClient(client);
         CaosMonkeyPodApplication application = new CaosMonkeyPodApplication();
@@ -56,7 +56,7 @@ class CaosMonkeyPodApplicationTest {
         assert(podDeleted2.getMetadata().getNamespace().equals("testing"));
     }
     @Test
-    public void deletesJustOnePod() throws IOException, ApiException {
+    public void deletesNoPods() throws IOException, ApiException {
         ApiClient client = Config.defaultClient();
         Configuration.setDefaultApiClient(client);
         CaosMonkeyPodApplication applicationCaosMonkey = new CaosMonkeyPodApplication();
