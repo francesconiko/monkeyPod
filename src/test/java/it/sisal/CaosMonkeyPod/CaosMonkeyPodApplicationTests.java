@@ -78,7 +78,7 @@ class CaosMonkeyPodApplicationTest {
         	if(applicationCaosMonkey.deleteRandomPod().getMetadata().getNamespace()=="testing") {
         		numberDeletedPods++;
         	}
-		}
+	}
         
       assertEquals(0,numberDeletedPods);
     }
