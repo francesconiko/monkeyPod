@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: testing
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: testing
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  namespace: testing
+spec:
+  selector:
+    app: nginx
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caosmonkeypod
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: caosmonkeypod
+  template:
+    metadata:
+      labels:
+        app: caosmonkeypod
+    spec:
+      containers:
+        - name: caosmonkeypod
+          image: caosmonkeypod:latest
+          env:
+            - name: KUBERNETES_NAMESPACE
+              value: testing
+          ports:
+            - containerPort: 8080
